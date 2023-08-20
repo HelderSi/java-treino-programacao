@@ -1,5 +1,6 @@
 package br.com.bank.service;
 
+import br.com.bank.errors.BancoNaoCadastradoException;
 import br.com.bank.gateway.Bacen;
 import br.com.bank.model.Banco;
 import br.com.bank.model.Conta;
@@ -69,6 +70,15 @@ class SistemaBancarioTest {
         SistemaBancario sistemaBancario = new SistemaBancario(new BacenFake());
         long numeroRegistro = sistemaBancario.registrarBanco(new Banco("SerproBank"));
         assertTrue(numeroRegistro > 0);
+    }
+
+    @Test
+    public void deve_lancar_excecao_para_banco_ja_cadastrado() {
+        SistemaBancario sistemaBancario = new SistemaBancario(new BacenStub());
+        sistemaBancario.registrarBanco(new Banco("SerproBank"));
+        assertThrows(BancoNaoCadastradoException.class, () -> {
+            sistemaBancario.registrarBanco(new Banco("SerproBank"));
+        });
     }
 
 }

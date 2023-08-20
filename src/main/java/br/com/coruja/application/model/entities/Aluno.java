@@ -1,5 +1,6 @@
 package br.com.coruja.application.model.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,10 +10,17 @@ import javax.persistence.GenerationType;
 @Entity
 public class Aluno {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(nullable = false)
     String name;
+    @Column(nullable = false)
     String email;
+
+    public Aluno(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 
     public Aluno(int id, String name, String email) {
         this.id = id;

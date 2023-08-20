@@ -3,6 +3,8 @@ package br.com.coruja.application.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,26 +25,30 @@ public class AlunoController {
     AlunoRepository alunoRepository;
 
     @GetMapping("/{id}")
-    public Aluno find(@PathVariable int id) {
-        return alunoRepository.getById(id);
+    public ResponseEntity<Aluno> find(@PathVariable int id) {
+        Aluno aluno = alunoRepository.findById(id).orElse(null);
+        if (aluno == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok().body(aluno);
     }
 
     @GetMapping
     public List<Aluno> list() {
-        return alunoRepository.findAll();
+        return (List<Aluno>) alunoRepository.findAll();
     }
 
     @PostMapping
-    public Aluno save(@RequestBody Aluno aluno) {
-        return alunoRepository.save(aluno);
+    public ResponseEntity<Aluno> save(@RequestBody Aluno aluno) {
+        Aluno alunoCreated = alunoRepository.save(aluno);
+        return new ResponseEntity<Aluno>(alunoCreated, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public Aluno update(@PathVariable int id, @RequestBody Aluno aluno) {
-        Aluno alunoExiste = alunoRepository.getById(id);
+    public ResponseEntity<Aluno> update(@PathVariable int id, @RequestBody Aluno aluno) {
+        Aluno alunoExiste = alunoRepository.findById(id).orElse(null);
         if (alunoExiste == null)
-            throw new Error("Aluno not found");
-        return alunoRepository.save(aluno);
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")

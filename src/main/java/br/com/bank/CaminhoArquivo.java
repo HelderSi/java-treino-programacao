@@ -25,9 +25,9 @@ public class CaminhoArquivo {
         return arquivo;
     }
 
-    public static CaminhoArquivo getInstance(Integer id) throws Error {
+    public static CaminhoArquivo getInstance(Integer id) throws RuntimeException {
         if (id == null)
-            throw new Error("Id não informado");
+            throw new RuntimeException("Id não informado");
         // Renomeacao: variáveis devem ter nomes significativos(Clean Code)
         String caminhoBase = "/tmp/";
         String caminhoDiretorio = null;

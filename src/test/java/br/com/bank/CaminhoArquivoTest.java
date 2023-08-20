@@ -41,9 +41,10 @@ class CaminhoArquivoTest {
     }
 
     @Test
-    @Disabled
     public void deve_lancar_excecao_para_id_nao_informado() {
-        // assertThrows(Error.class, CaminhoArquivo.getInstance(null));
+        assertThrows(RuntimeException.class, () -> {
+            CaminhoArquivo.getInstance(null);
+        });
     }
 
 }
