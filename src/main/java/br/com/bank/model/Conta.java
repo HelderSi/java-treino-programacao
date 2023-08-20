@@ -1,6 +1,5 @@
 package br.com.bank.model;
 
-
 public class Conta {
 
 	private double saldo;
@@ -8,6 +7,11 @@ public class Conta {
 
 	public Conta(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public Conta(String cpf, double saldo) {
+		this.cpf = cpf;
+		this.saldo = saldo;
 	}
 
 	public double getSaldo() {

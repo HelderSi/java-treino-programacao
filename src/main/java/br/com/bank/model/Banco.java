@@ -1,6 +1,5 @@
 package br.com.bank.model;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,11 +19,13 @@ public class Banco {
     public void adicionarConta(Conta conta) {
         contas.add(conta);
     }
+
     public Conta pesquisarContaDoCliente(String cpf) {
         Conta c = null;
         for (int i = 0; i < contas.size(); i++) {
             if (contas.get(i).getCpf().equals(cpf)) {
                 c = contas.get(i);
+                break; // evita percorrer toda a lista: interrompe a busca assim que encontra a conta
             }
         }
         return c;

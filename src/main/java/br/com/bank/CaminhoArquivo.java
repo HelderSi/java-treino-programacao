@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 
 public class CaminhoArquivo {
 
-
     private Path diretorio;
 
     private Path arquivo;
@@ -26,24 +25,22 @@ public class CaminhoArquivo {
         return arquivo;
     }
 
-    public static CaminhoArquivo getInstance(Integer id) {
-        String b = "/tmp/";
-        String d = null;
-        if (id <= 1000) {
-            d = b + id;
-        } else {
-            int i = id;
-            boolean f = true;
-            while (f) {
-                if (id <= (i * 1000)) {
-                    d = b + i;
-                    f = false;
-                }
-                i++;
-            }
-        }
-        return new CaminhoArquivo(Paths.get(d), Paths.get(d));
+    public static CaminhoArquivo getInstance(Integer id) throws Error {
+        if (id == null)
+            throw new Error("Id não informado");
+        // Renomeacao: variáveis devem ter nomes significativos(Clean Code)
+        String caminhoBase = "/tmp/";
+        String caminhoDiretorio = null;
+        int incremento = id % 1000 == 0 ? 0 : 1;
+        int numeroSubDiretorio = (id / 1000) + incremento;
+        caminhoDiretorio = caminhoBase + Integer.toString(numeroSubDiretorio);
+        String caminhoArquivo = caminhoDiretorio + "/" + id;
 
+        // Código removido
+        // remocao de blocos aninhados em mais de 2 níveis(Clean Code)
+        // reducão da complexidade do algoritmo
+
+        return new CaminhoArquivo(Paths.get(caminhoDiretorio), Paths.get(caminhoArquivo));
     }
 
 }

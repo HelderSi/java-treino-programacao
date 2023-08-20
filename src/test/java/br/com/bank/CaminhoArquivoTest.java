@@ -6,12 +6,13 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.nullable;
 
 class CaminhoArquivoTest {
 
     @Test
-    @Disabled
+    // @Disabled
     public void deve_montar_caminho_para_arquivo() {
 
         CaminhoArquivo caminhoArquivo = CaminhoArquivo.getInstance(1);
@@ -37,7 +38,12 @@ class CaminhoArquivoTest {
         caminhoArquivo = CaminhoArquivo.getInstance(2001);
         assertEquals(Paths.get("/tmp/3"), caminhoArquivo.getDiretorio());
         assertEquals(Paths.get("/tmp/3/2001"), caminhoArquivo.getArquivo());
+    }
 
+    @Test
+    @Disabled
+    public void deve_lancar_excecao_para_id_nao_informado() {
+        // assertThrows(Error.class, CaminhoArquivo.getInstance(null));
     }
 
 }
