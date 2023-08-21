@@ -7,6 +7,7 @@ import java.util.Random;
 import br.com.bank.gateway.Bacen;
 import br.com.bank.model.Banco;
 
+// Implementacao simples, mas dinâmica e funcional
 public class BacenFake extends Bacen {
 
     List<Banco> bancos = new ArrayList<>();

@@ -1,42 +1,51 @@
 package br.com.bank.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Banco {
 
     private String nome;
 
+    private static final int VALOR_CONTA_ALTA_RENDA = 10000; // Evitar magic number
+
     public Banco(String nome) {
         this.nome = nome;
     }
 
-    private List<Conta> contas = new ArrayList<>();
+    private Map<String, Conta> contas = new HashMap<>();
 
     public void adicionarConta(Conta conta) {
-        contas.add(conta);
+        contas.put(conta.getCpf(), conta);
     }
 
-    public Conta pesquisarContaDoCliente(String cpf) {
-        Conta c = null;
-        for (int i = 0; i < contas.size(); i++) {
-            if (contas.get(i).getCpf().equals(cpf)) {
-                c = contas.get(i);
-                break; // evita percorrer toda a lista: interrompe a busca assim que encontra a conta
-            }
-        }
-        return c;
+    public Optional<Conta> pesquisarContaDoCliente(String cpf) {
+        // Conta conta = null;
+        // for (int i = 0; i < contas.size(); i++) {
+        // if (contas.get(i).getCpf().equals(cpf)) {
+        // conta = contas.get(i);
+        // break; // evita percorrer toda a lista: interrompe a busca assim que encontra
+        // a conta
+        // }
+        // }
+
+        // return Optional.of(conta);
+        return Optional.ofNullable(contas.get(cpf));
+
     }
 
     public List<Conta> listarContasAltaRenda() {
-        return filtrarContas(c -> c.getSaldo() >= 10000);
+        return filtrarContas(c -> c.getSaldo() >= VALOR_CONTA_ALTA_RENDA); // evitar magic number
     }
 
     private List<Conta> filtrarContas(Predicate<Conta> filtro) {
-        return contas.stream().filter(filtro).collect(Collectors.toList());
+        return contas.values().stream().filter(filtro).collect(Collectors.toList());
     }
 
     @Override

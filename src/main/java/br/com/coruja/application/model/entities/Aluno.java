@@ -17,6 +17,10 @@ public class Aluno {
     @Column(nullable = false)
     String email;
 
+    public Aluno() {
+
+    }
+
     public Aluno(String name, String email) {
         this.name = name;
         this.email = email;

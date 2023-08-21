@@ -8,15 +8,10 @@ import br.com.bank.errors.BancoNaoCadastradoException;
 import br.com.bank.gateway.Bacen;
 import br.com.bank.model.Banco;
 
+// Implementacao estática (nao funcional)
 public class BacenStub extends Bacen {
-    List<Banco> bancos = new ArrayList<>();
 
     public long cadastrarBanco(Banco banco) {
-        long numeroRegistro = new Random().nextLong();
-        if (bancos.contains(banco)) {
-            throw new BancoNaoCadastradoException();
-        }
-        bancos.add(banco);
-        return numeroRegistro;
+        return 1;
     }
 }

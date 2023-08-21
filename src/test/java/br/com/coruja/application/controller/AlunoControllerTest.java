@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.function.BodyInserter;
+import org.springframework.web.reactive.function.BodyInserters;
 
 import br.com.coruja.application.model.entities.Aluno;
 
@@ -26,7 +28,13 @@ class AlunoControllerTest {
     @Test
     public void deve_salvar_um_novo_aluno() {
         Aluno aluno = new Aluno("helder", "email");
-        web.post().uri("/alunos").bodyValue(aluno).accept(MediaType.ALL).exchange().expectStatus().isCreated()
+        web.post()
+                .uri("/alunos")
+                .accept(MediaType.ALL)
+                .body(BodyInserters.fromValue(aluno))
+                .exchange()
+                .expectStatus()
+                .isCreated()
                 .expectBody(Aluno.class)
                 .value(c -> assertEquals(aluno, c));
     }
