@@ -99,7 +99,7 @@ A sua classe de controller AlunoController deve ser:
 - 🟢 put deve atualizar todos os atributos de um aluno recebendo o ID no path param - PUT
   - 🟢 retornar 200 como status code
 - 🟢 delete deve remover um aluno - DELETE
-  - ⚪️ retornar 200 como status code
+  - 🟢 retornar 200 como status code
 
 > Atenção no método FIND, caso não exista um aluno o valor retornado deve ser 404. Já no mesmo LIST, deve retornar uma colleção vazia com o status code 200.
 
