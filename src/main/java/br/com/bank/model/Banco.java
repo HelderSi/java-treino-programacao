@@ -48,6 +48,14 @@ public class Banco {
         return contas.values().stream().filter(filtro).collect(Collectors.toList());
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
